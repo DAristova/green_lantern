@@ -2,7 +2,7 @@
 This is a list of functions that should be completed.
 """
 
-from typing import Any
+from typing import Any, List
 from typing import List
 
 
@@ -104,11 +104,7 @@ def some_loop_exercise() -> int:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
     """
-    list = []
-    for i in range(0, 13):
-        if i == 6 or i == 7:
-            continue
-        list.append(i)
+    list = [i for i in range(0, 13) if i != 6 and i != 7]
 
     return list
 
@@ -122,12 +118,8 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
         remove_from_list_all_negative_numbers([1, 5, -7, 8, -1])
         >>> [1, 5, 8]
     """
-    listPositive = []
-    for i in data:
-        if i >= 0:
-            listPositive.append(i)
+    listPositive = [i for i in data if i >= 0]
 
-        i += 1
     return listPositive
 
 
@@ -151,12 +143,13 @@ def simple_sort(data: List[int]) -> List[list]:
         simple_sort([2, 9, 6, 7, 3, 2, 1])
         >>> [1, 2, 2, 3, 6, 7, 9]
     """
+    sortList = data
     temp = 0
-    for index in range(len(data)):
-        for i in range(len(data) - 1):
-            if data[i] > data [i + 1]:
-                temp = data[i]
-                data[i] = data[i + 1]
-                data[i + 1] = temp
+    for index in range(len(sortList)):
+        for i in range(len(sortList) - 1):
+            if sortList[i] > sortList[i + 1]:
+                temp = sortList[i]
+                sortList[i] = sortList[i + 1]
+                sortList[i + 1] = temp
 
-    return data
+    return sortList
