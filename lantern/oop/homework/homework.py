@@ -1,69 +1,106 @@
+from __future__ import annotations
+
+
 class Cat:
     """
     Write Class Cat which will receive age from user
-    * Add to class average_speed variable which will get it's values
-      from private method _set_average_speed()
+    * #Add to class average_speed variable which will get it's values
+      #from private method _set_average_speed()
 
-    * Add to class saturation_level variable with value 50
+    * #Add to class saturation_level variable with value 50
 
     * Implement private methods _increase_saturation_level and _reduce_saturation_level
-      that will receive value and add/subtract from saturation_level this value
-      if saturation_level is less than 0, return 0
-      if saturation_level is grosser than 100, return 100
+      #that will receive value and add/subtract from saturation_level this value
+      #if saturation_level is less than 0, return 0
+      #if saturation_level is grosser than 100, return 100
 
-    * Implement method eat which will receive from user product value
-      if product eq fodder use _increase_saturation_level with value eq 10
-      if product eq apple use _increase_saturation_level with value eq 5
-      if product eq milk use _increase_saturation_level with value eq 2
+    * #Implement method eat which will receive from user product value
+      #if product eq fodder use _increase_saturation_level with value eq 10
+      #if product eq apple use _increase_saturation_level with value eq 5
+      #if product eq milk use _increase_saturation_level with value eq 2
 
-    * Implement private method _set_average_speed
-      if age less or eq 7 return 12
-      if age between 7(not including) and 10(including) return 9
-      if age grosser than 10(not including) return 6
+    * #Implement private method _set_average_speed
+      #if age less or eq 7 return 12
+     # if age between 7(not including) and 10(including) return 9
+      #if age grosser than 10(not including) return 6
 
-    * Implement method run it receives hours value
-      Calculate run km per hours remember that you have average_speed value
-      Than if your cat run less or eq than 25 _reduce_saturation_level with value 2
-      if it runs between 25(not including) and 50(including) than _reduce_saturation_level with value 5
-      if it runs between 50(not including) and 100(including) than _reduce_saturation_level with value 15
-      if it runs between 100(not including) and 200(including) than _reduce_saturation_level with value 25
-      if it runs more than 200(not including) than _reduce_saturation_level with value 50
+    * #Implement method run it receives hours value
+      #Calculate run km per hours remember that you have average_speed value
+      #Than if your cat run less or eq than 25 _reduce_saturation_level with value 2
+      #if it runs between 25(not including) and 50(including) than _reduce_saturation_level with value 5
+      #if it runs between 50(not including) and 100(including) than _reduce_saturation_level with value 15
+      #if it runs between 100(not including) and 200(including) than _reduce_saturation_level with value 25
+      #if it runs more than 200(not including) than _reduce_saturation_level with value 50
 
-      return text like this: f"Your cat ran {ran_km} kilometers"
+      #return text like this: f"Your cat ran {ran_km} kilometers"
 
-    * Implement get_saturation_level and return saturation_level
-      if saturation_level eq 0 return text like this: "Your cat is dead :("
+    * #Implement get_saturation_level and return saturation_level
+      #if saturation_level eq 0 return text like this: "Your cat is dead :("
 
     * Implement get_average_speed and return average_speed
 
     """
 
-    def __init__(self, age):
-        pass
+    def __init__(self, age) -> object:
+        self.age = age
+        self.average_speed = self.get_average_speed()
+        self.saturation_level = 50
 
     def eat(self, product):
-        pass
+        if product == fodder:
+            self._increase_saturation_level(10)
+        elif product == apple:
+            self._increase_saturation_level(5)
+        elif product == milk:
+            self._increase_saturation_level(2)
 
     def _reduce_saturation_level(self, value):
-        pass
+        if self.saturation_level - value <= 0:
+            return 0
+        elif self.saturation_level - value >= 100:
+            return 100
 
     def _increase_saturation_level(self, value):
-        pass
+        if self.saturation_level + value >= 100:
+            return 100
+        elif self.saturation_level + value <= 0:
+            return 0
 
     def _set_average_speed(self):
-        pass
+        if self.age <= 7:
+            return 12
+        elif 7 < self.age <= 10:
+            return 9
+        elif self.age > 10:
+            return 6
 
     def run(self, hours):
-        pass
+        distance = self.average_speed * hours
+        if distance <= 25:
+            self._reduce_saturation_level(2)
+        elif 25 < distance <= 50:
+            self._reduce_saturation_level(5)
+        elif 50 < distance <= 100:
+            self._reduce_saturation_level(15)
+        elif 100 < distance <= 200:
+            self._reduce_saturation_level(25)
+        elif distance > 200:
+            self._reduce_saturation_level(50)
+        return f"Your cat run {distance} km"
 
     def get_saturation_level(self):
-        pass
+        saturation_level = self._reduce_saturation_level + self._increase_saturation_level
+        if 0 >= saturation_level:
+            print("I'm sorry, your cat died")
 
     def get_average_speed(self):
-        pass
+        return self.average_speed == self._set_average_speed
 
 
-class Cheetah:
+
+
+
+class Cheetah (Cat):
     """
     * Inherit from class Cat
 
@@ -77,6 +114,22 @@ class Cheetah:
       if age grosser 15(not including) return 40
 
     """
+    def __init__(self, age):
+        super().__init__(age)
+
+    def eat(self, product):
+        if product == gazelle:
+            self._increase_saturation_level(30)
+        elif product == rabbit:
+            self._increase_saturation_level(15)
+
+    def _set_average_speed(self):
+        if age <= 5:
+            return 90
+        elif 5 < age <= 15:
+            return 75
+        elif age > 15:
+            return 40
 
 
 class Wall:
@@ -95,7 +148,9 @@ class Wall:
     """
 
     def __init__(self, width, height):
-        pass
+        self.width = width
+        self.height = height
+
 
     def wall_square(self):
         pass
