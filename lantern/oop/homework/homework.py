@@ -153,7 +153,7 @@ class Wall:
 
 
     def wall_square(self):
-        pass
+        return self.height * self.width
 
     def number_of_rolls_of_wallpaper(self, roll_width_m, roll_length_m):
         pass
