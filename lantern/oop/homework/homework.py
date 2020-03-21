@@ -65,30 +65,28 @@ class Cat:
     def _set_average_speed(self):
         if self.age <= 7:
             return 12
-        elif 7 < self.age <= 10:
+        elif self.age <= 10:
             return 9
-        elif self.age > 10:
+        else:
             return 6
 
     def run(self, hours):
         distance = self.average_speed * hours
         if distance <= 25:
             self._reduce_saturation_level(2)
-        elif 25 < distance <= 50:
+        elif distance <= 50:
             self._reduce_saturation_level(5)
-        elif 50 < distance <= 100:
+        elif distance <= 100:
             self._reduce_saturation_level(15)
-        elif 100 < distance <= 200:
+        elif distance <= 200:
             self._reduce_saturation_level(25)
-        elif distance > 200:
+        else:
             self._reduce_saturation_level(50)
         return f"Your cat ran {distance} km"
 
+    @property
     def get_saturation_level(self):
-        if self.saturation_level == 0:
-            return "Your cat is died :("
-        else:
-            return self.saturation_level
+        return self.saturation_level if self.saturation_level > 0 else 'Your cat is died :('
 
     def get_average_speed(self):
         return self.average_speed
@@ -121,19 +119,10 @@ class Cheetah(Cat):
     def _set_average_speed(self):
         if self.age <= 5:
             return 90
-        elif 5 < self.age <= 15:
+        elif self.age <= 15:
             return 75
-        elif self.age > 15:
+        else:
             return 40
-
-#if __name__ == '__main__':
-    #Tom = Cat(age=6)
-    #Cat.eat(Tom, product='milk')
-    #Cat.run(Tom, 5)
-    #print(Cat.get_saturation_level(Tom))
-    #Gep = Cheetah(age=5)
-    #Cheetah.eat(Gep, product='gazelle')
-    #print(Cheetah.get_saturation_level(Gep))
 
 
 class Wall:
@@ -347,10 +336,10 @@ class House:
         return self.__door.door_price(material)
 
     def update_wood_price(self, new_wood_price):
-        return self.__door.update_wood_price(new_wood_price)
+        self.__door.update_wood_price(new_wood_price)
 
     def update_metal_price(self, new_metal_price):
-        return self.__door.update_metal_price(new_metal_price)
+        self.__door.update_metal_price(new_metal_price)
 
     def get_roof_square(self):
         return self.__roof.roof_square()
@@ -371,4 +360,3 @@ class House:
 
     def get_room_square(self):
         return self.get_walls_square() - (self.get_door_square() + self.get_windows_square())
-
