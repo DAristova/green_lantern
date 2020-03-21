@@ -126,14 +126,14 @@ class Cheetah(Cat):
         elif self.age > 15:
             return 40
 
-if __name__ == '__main__':
-    Tom = Cat(age=6)
-    Cat.eat(Tom, product='milk')
-    Cat.run(Tom, 5)
-    print(Cat.get_saturation_level(Tom))
-    Bro = Cheetah(age=5)
-    Cheetah.eat(Bro, product='gazelle')
-    print(Cheetah.get_saturation_level(Bro))
+#if __name__ == '__main__':
+    #Tom = Cat(age=6)
+    #Cat.eat(Tom, product='milk')
+    #Cat.run(Tom, 5)
+    #print(Cat.get_saturation_level(Tom))
+    #Gep = Cheetah(age=5)
+    #Cheetah.eat(Gep, product='gazelle')
+    #print(Cheetah.get_saturation_level(Gep))
 
 
 class Wall:
@@ -371,3 +371,4 @@ class House:
 
     def get_room_square(self):
         return self.get_walls_square() - (self.get_door_square() + self.get_windows_square())
+
