@@ -10,10 +10,8 @@ class Robot:
         self.y = y
         self.asteroid = asteroid
         self.direction = direction
-        if self.x > self.asteroid.x:
-            raise MissAsteroidError()
-        if self.y > self.asteroid.y:
-            raise MissAsteroidError()
+        if self.x > self.asteroid.x or self.y > self.asteroid.y:
+           raise MissAsteroidError()
 
     def turn_left(self):
         turns_left = {'E': 'N', 'N': 'W', 'W': 'S', 'S': 'E'}
@@ -55,7 +53,3 @@ class MissAsteroidError(Exception):
 class RobotFallError(Exception):
     pass
 
-# if __name__ == '__main__':
-# asteroid = Asteroid(15, 15)
-# robot = Robot(5, 5, asteroid, 'N')
-# try: print(robot.move_backward(15))

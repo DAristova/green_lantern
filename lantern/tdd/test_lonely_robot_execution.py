@@ -119,7 +119,7 @@ class TestRobotBehavior:
                 ('N', 6, -1),
                 ('S', 20, -15),
                 ('W', 7, -2),
-                ('E', 10, -5)
+                ('E', 11, -6)
         )
     )
     def test_robot_fall_backward(self, direction, distance, expected_position):
