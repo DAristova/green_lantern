@@ -65,64 +65,57 @@ class TestRobotBehavior:
         "direction, distance, expected_position",
         (
                 ('N', 5, 10),
-                ('S', 9, 14),
-                ('W', 1, 6),
+                ('S', 2, 3),
+                ('W', 1, 4),
                 ('E', 3, 8)
         )
     )
     def test_move_forward(self, direction, distance, expected_position):
         robot = Robot(self.x, self.y, self.asteroid, direction)
-        if direction == 'N' or direction == 'S':
-            current_position = robot.x
-            robot.move_forward(distance)
-        if direction == 'W' or direction == 'E':
-            current_position = robot.y
-            robot.move_forward(distance)
-        assert current_position + distance == expected_position
+        robot.move_forward(distance)
+        assert robot.x == expected_position or robot.y == expected_position
+
+
+
 
     @pytest.mark.parametrize(
-        "direction, distance, expected_position",
+        "direction, distance, expected_x, expected_y",
         (
-                ('N', 1, 4),
-                ('S', 3, 2),
-                ('W', 4, 1),
-                ('E', 2, 3)
+                ('N', 1, 5, 4),
+                ('S', 3, 5, 8),
+                ('W', 4, 9, 5),
+                ('E', 2, 3, 5)
         )
     )
-    def test_move_backward(self, direction, distance, expected_position):
+    def test_move_backward(self, direction, distance, expected_x, expected_y):
         robot = Robot(self.x, self.y, self.asteroid, direction)
-        if direction == 'N' or direction == 'S':
-            current_position = robot.x
-            robot.move_backward(distance)
-        if direction == 'W' or direction == 'E':
-            current_position = robot.y
-            robot.move_backward(distance)
-        assert current_position - distance == expected_position
+        robot.move_backward(distance)
+        assert robot.x == expected_x and robot.y == expected_y
 
     @pytest.mark.parametrize(
-        "direction, distance, expected_position",
+        "direction, distance, expected_x, expected_y",
         (
-                ('N', 15, 20),
-                ('S', 25, 30),
-                ('W', 11, 16),
-                ('E', 14, 19)
+                ('N', 15, 5, 20),
+                ('S', 25, 5, -20),
+                ('W', 11, -6, 5),
+                ('E', 14, 19, 5)
         )
     )
-    def test_robot_fall_forward(self, direction, distance, expected_position):
+    def test_robot_fall_forward(self, direction, distance, expected_x, expected_y):
         with pytest.raises(RobotFallError):
             robot = Robot(self.x, self.y, self.asteroid, direction)
             robot.move_forward(distance)
 
     @pytest.mark.parametrize(
-        "direction, distance, expected_position",
+        "direction, distance, expected_x, expected_y",
         (
-                ('N', 6, -1),
-                ('S', 20, -15),
-                ('W', 7, -2),
-                ('E', 11, -6)
+                ('N', 6, 5, -1),
+                ('S', 20, 5, 35),
+                ('W', 16, 21, 5),
+                ('E', 11, -6, 5)
         )
     )
-    def test_robot_fall_backward(self, direction, distance, expected_position):
+    def test_robot_fall_backward(self, direction, distance, expected_x, expected_y):
         with pytest.raises(RobotFallError):
             robot = Robot(self.x, self.y, self.asteroid, direction)
             robot.move_backward(distance)
