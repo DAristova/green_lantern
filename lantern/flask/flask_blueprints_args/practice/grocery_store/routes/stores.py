@@ -1,14 +1,22 @@
 import inject
 from flask import request
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
+parser = reqparse.RequestParser(bundle_errors=True)
+parser.add_argument('name', required=False, type=str)
 
 class Store(Resource):
 
-    def get(self, store_id):
+    def get(self, store_id=None):
         db = inject.instance('DB')
-        store = db.stores.get_store_by_id(store_id)
-        return store
+        if store_id is not None:
+            store = db.stores.get_store_by_id(store_id)
+            return store
+        else:
+            args = parser.parse_args()
+            name = args['name']
+            store = db.stores.get_stores_by_name(name)
+            return store
 
     def post(self):
         db = inject.instance('DB')
