@@ -8,11 +8,23 @@ class NoSuchUserError(Exception):
         self.message = f'No such user_id {user_id}'
 
 
+class NoSuchStoreError(Exception):
+    def __init__(self, store_id):
+        self.message = f'No such store_id {store_id}'
+
+
+
 app = Flask(__name__)
+
 
 @app.errorhandler(NoSuchUserError)
 def my_error_handler(e):
-	return jsonify({'error': e.message}), 404
+    return jsonify({'error': e.message}), 404
+
+
+@app.errorhandler(NoSuchStoreError)
+def my_error_handler(e):
+    return jsonify({'error': e.message}), 404
 
 
 @app.route('/users', methods=['POST'])
@@ -27,3 +39,54 @@ def get_user(user_id):
     db = inject.instance('DB')
     user = db.users.get_user_by_id(user_id)
     return jsonify(user)
+
+
+@app.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    db = inject.instance('DB')
+    db.users.update_user_by_id(user_id, request.json)
+    return jsonify({'status': 'success'})
+
+
+@app.route('/goods', methods=['POST'])
+def create_new_position():
+    db = inject.instance('DB')
+    new_position = db.goods.add_new_position(request.json)
+    return jsonify({'numbers of items created': new_position}), 201
+
+
+@app.route('/goods', methods=['GET'])
+def get_goods():
+    db = inject.instance('DB')
+    goods = db.goods.get_all_goods()
+    return jsonify(goods), 200
+
+
+@app.route('/goods', methods=['PUT'])
+def update_goods():
+    db = inject.instance('DB')
+    goods, errors = db.goods.update_positions(request.json)
+    return jsonify({'Successfully updated': goods, 'error': {'No such id in goods': errors}}), 200
+
+
+@app.route('/store', methods=['POST'])
+def create_new_store():
+    db = inject.instance('DB')
+    db.users.get_user_by_id(request.json['manager_id'])
+    store_id = db.stores.add(request.json)
+    return jsonify({'store_id': store_id}), 201
+
+
+@app.route('/store/<int:store_id>')
+def get_store(store_id):
+    db = inject.instance('DB')
+    store = db.stores.get_store_by_id(store_id)
+    return jsonify(store)
+
+
+@app.route('/store/<int:store_id>',  methods=['PUT'])
+def update_store_by_store_id(store_id):
+    db = inject.instance('DB')
+    db.users.get_user_by_id(request.json['manager_id'])
+    db.stores.update_store_by_id(store_id, request.json)
+    return jsonify({'status': 'success'}), 201
