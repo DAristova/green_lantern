@@ -6,6 +6,11 @@ services:
     command: python wsgi.py run
     ports:
       - 8000:5000
+    links:
+      - db
+    depends_on:
+      - db
+    restart: on-failure
 
   db:
     image: postgres:latest
