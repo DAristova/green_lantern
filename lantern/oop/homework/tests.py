@@ -12,7 +12,7 @@ from homework import Cat, Cheetah, House
 def test_cat_eat(age, food, result):
     cat = Cat(age)
     cat.eat(food)
-    assert cat.get_saturation_level() == result
+    assert cat.get_saturation_level == result
 
 
 @pytest.mark.parametrize("age, food, result", [
@@ -23,7 +23,7 @@ def test_cat_eat(age, food, result):
 def test_cheetah_eat(age, food, result):
     cheetah = Cheetah(age)
     cheetah.eat(food)
-    assert cheetah.get_saturation_level() == result
+    assert cheetah.get_saturation_level == result
 
 
 @pytest.mark.parametrize("age, result", [
@@ -60,7 +60,7 @@ def test_set_cheetah_average_speed(age, result):
 def test_cat_run(age, hours, result):
     cat = Cat(age)
     cat.run(hours)
-    assert cat.get_saturation_level() == result
+    assert cat.get_saturation_level == result
 
 
 @pytest.mark.parametrize("age, hours, result", [
@@ -71,7 +71,7 @@ def test_cat_run(age, hours, result):
 def test_cat_run(age, hours, result):
     cheetah = Cheetah(age)
     cheetah.run(hours)
-    assert cheetah.get_saturation_level() == result
+    assert cheetah.get_saturation_level == result
 
 
 class TestHouse:
