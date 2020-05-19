@@ -7,7 +7,7 @@ from grocery_store.config import Config
 from grocery_store.models import User
 from grocery_store.routes import users, goods, stores, auth, main
 from grocery_store.database import db
-from grocery_store.commands import Populate
+from grocery_store.commands import Populate, PopulateOrders
 
 
 def make_app():
@@ -31,6 +31,7 @@ def make_manager(app):
     manager.add_command('runserver', Server(host=Config.HOST, port=Config.PORT))
     manager.add_command('db', MigrateCommand)
     manager.add_command('populate', Populate)
+    manager.add_command('populate_orders', PopulateOrders)
     return manager
 
 

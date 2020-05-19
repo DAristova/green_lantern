@@ -42,6 +42,8 @@ class Store(db.Model):
     address = db.Column(db.String(), nullable=False)
     manager_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 
+    orders = db.relationship('Order', backref='store')
+
 
 class Order(db.Model):
     __tablename__ = "orders"
