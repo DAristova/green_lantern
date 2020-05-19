@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from grocery_store.database import db
+from grocery_store.models import Good
 from flask_login import current_user
 
 main = Blueprint('main', __name__)
@@ -17,4 +17,4 @@ def profile():
 
 @main.route('/our_goods')
 def list_of_goods():
-    return render_template('goods.html')
+    return render_template('goods.html', goods=Good.query.all())
