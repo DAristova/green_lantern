@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Welcome, {{ user }}!
+  Your email is {{ email }}
+</h1>
+    <a href="{{ url_for('main.list_of_goods') }}"> Goods </a>
+{% endblock %}
