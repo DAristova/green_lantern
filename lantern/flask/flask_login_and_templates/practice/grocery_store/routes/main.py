@@ -13,3 +13,8 @@ def index():
 @main.route('/profile')
 def profile():
     return render_template('profile.html', user=current_user.name, email=current_user.email)
+
+
+@main.route('/our_goods')
+def list_of_goods():
+    return render_template('goods.html')
