@@ -14,6 +14,10 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
 
+    orders = db.relationship('Order', backref='user')
+    manage_stores = db.relationship('Store', backref='user')
+
+
     def __repr__(self):
         return f"<id: {self.user_id}, name: {self.name}, email: {self.email}>"
 
@@ -47,6 +51,8 @@ class Order(db.Model):
     created_time = db.Column(DateTime, default=datetime.datetime.utcnow)
     store_id = db.Column(db.Integer, db.ForeignKey("stores.store_id"), nullable=False)
 
+    order_lines = db.relationship('OrderLine', backref='order')
+
 
 class OrderLine(db.Model):
     __tablename__ = "order_lines"
@@ -54,3 +60,5 @@ class OrderLine(db.Model):
     order_line_id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.order_id"), nullable=False)
     good_id = db.Column(db.Integer, db.ForeignKey("goods.good_id"), nullable=False)
+
+    good = db.relationship('Good')
