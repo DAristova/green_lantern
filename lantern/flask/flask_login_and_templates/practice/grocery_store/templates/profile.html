@@ -3,7 +3,8 @@
 {% block content %}
 <h1 class="title">
   Welcome, {{ user }}!
-  Your email is {{ email }}
 </h1>
-    <a href="{{ url_for('main.list_of_goods') }}"> Goods </a>
+    <h5>Your email is {{ email }}</h5>
+    <hr>
+    <h5>Tap <a href="{{ url_for('main.list_of_goods') }}"> HERE </a> to see all our goods</h5>
 {% endblock %}

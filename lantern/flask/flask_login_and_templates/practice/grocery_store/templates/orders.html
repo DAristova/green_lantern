@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <style type="text/css">
+   TABLE {
+    width: 800px;
+    border-collapse: collapse;
+   }
+   TD, TH {
+    padding: 3px;
+    border: 1px solid black;
+   }
+   TH {
+    background: #b0e0e6;
+   }
+  </style>
+</head>
+<body>
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Item</th>
+        <th>Price</th>
+    </tr>
+    {% for order in orders %}
+        {% for line in order.order_lines %}
+        <tr>
+            <td>{{order['order_id']}}</td>
+            <td>{{order['created_time']}}</td>
+            <td>{{line.good['name']}}</td>
+            <td>{{line.good['price']}}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+    <td></td>
+    <td></td>
+    <td> <strong>Total:</strong></td>
+    <td>{{ amount }}</td>
+</body>
+</html>

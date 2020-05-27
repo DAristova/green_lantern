@@ -19,3 +19,8 @@ stores_structure = {
     "address": fields.String,
     "manager_id": fields.Integer,
 }
+
+# orders_structure = {
+#     "order_id": fields.Integer,
+#     "user_id":
+# }
