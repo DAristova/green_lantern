@@ -9,11 +9,8 @@ orders = Blueprint('orders', __name__)
 @login_required
 def list_of_orders():
     user = current_user
-    result_dict = {}
+    price_sum = 0
     for order in user.orders:
         for line in order.order_lines:
-            try:
-                result_dict['price'] += line.good.price
-            except KeyError:
-                result_dict['price'] = line.good.price
-    return render_template('orders.html', orders=user.orders, amount=result_dict['price'])
+            price_sum += line.good.price
+    return render_template('orders.html', orders=user.orders, amount=price_sum)
