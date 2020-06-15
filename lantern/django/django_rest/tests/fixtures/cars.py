@@ -3,6 +3,8 @@ from uuid import uuid4
 import factory
 
 from apps.cars.models import Car, CarBrand, CarModel
+from apps.orders.models import Order
+from tests.fixtures.dealers import DealerFactory
 
 
 class CarBrandFactory(factory.DjangoModelFactory):
@@ -22,6 +24,13 @@ class CarModelFactory(factory.DjangoModelFactory):
 
 class CarFactory(factory.DjangoModelFactory):
     model = factory.SubFactory(CarModelFactory)
+    dealer = factory.SubFactory(DealerFactory)
 
     class Meta:
         model = Car
+
+
+class OrderFactory(factory.DjangoModelFactory):
+    car = factory.SubFactory(CarFactory)
+    class Meta:
+        model = Order
