@@ -12,7 +12,7 @@ class CarQuerySet(models.QuerySet):
 
 class CarManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().select_related('model', 'model__brand')\
+        return super().get_queryset().select_related('model', 'model__brand')
         #     .annotate(
         #     model_brand_title=Concat()
         # )

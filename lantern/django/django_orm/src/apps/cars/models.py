@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Index, UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
-from apps.cars.managers import CarManager, CarQuerySet
+from .managers import CarManager, CarQuerySet
 from common.models import BaseDateAuditModel
 
 
@@ -53,6 +53,18 @@ class CarModel(models.Model):
         return self.name
 
 
+class Property(models.Model):
+    property_id = models.AutoField(primary_key=True)
+    category = models.CharField(max_length=15)
+    name = models.CharField(max_length=15)
+
+
+class CarProperty(models.Model):
+    id = models.AutoField(primary_key=True)
+    property = models.ForeignKey(to='Property', on_delete=models.DO_NOTHING, null=True, blank=False)
+    car = models.ForeignKey(to='Car', on_delete=models.DO_NOTHING, null=True, blank=False)
+
+
 class Car(BaseDateAuditModel):
     STATUS_PENDING = 'pending'
     STATUS_PUBLISHED = 'published'
@@ -66,18 +78,24 @@ class Car(BaseDateAuditModel):
         (STATUS_ARCHIVED, "Archived"),
     )
 
-    objects = CarManager.from_queryset(CarQuerySet)()
+    car_id = models.AutoField(primary_key=True)
+    color = models.ForeignKey(to='Color', on_delete=models.SET_NULL(), related_name='colours')
+    dealer = models.ForeignKey(to='dealers.Dealer', on_delete=models.CASCADE, related_name='cars')
+    model = models.ForeignKey(to='CarModel', on_delete=models.SET_NULL, null=True, blank=False, related_name=models)
+    engine_type = models.CharField(max_length=30)
+    population_type = models.CharField(max_length=30)
+    price = models.FloatField(max_length=16)
+    fuel_type = models.CharField(max_length=15)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_PENDING, blank=True)
+    doors = models.IntegerField(blank=True)
+    capasity = models.IntegerField(blank=True)
+    gear_case = models.CharField(max_length=15, blank=True)
     views = models.PositiveIntegerField(default=0, editable=False)
     slug = models.SlugField(max_length=75)
     number = models.CharField(max_length=16, unique=True)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_PENDING, blank=True)
-    # dealer = models.ForeignKey('Dealer', on_delete=models.CASCADE, related_name='cars')
-
-    model = models.ForeignKey(to='CarModel', on_delete=models.SET_NULL, null=True, blank=False)
     extra_title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Title second part'))
-
-    # other fields ...
-    #
+    objects = CarManager.from_queryset(CarQuerySet)()
 
     def save(self, *args, **kwargs):
         order_number_start = 7600000
