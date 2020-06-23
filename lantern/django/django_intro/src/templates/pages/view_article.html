@@ -1,0 +1,11 @@
+{% extends 'pages/article_list.html' %}
+{% block content %}
+    <h5 class="card-title">{{ article.title }}</h5>
+       <p class="card-title">{{article.author}}</p>
+       <p class="card-title">{{article.body}}</p>
+       <p class="card-title">{{article.tags.name}}</p>
+       <a href="update/{{article.id}}" class="btn btn-warning" id = '{{article.id}}'>edit</a>
+       <a href="delete/{{article.id}}" class="btn btn-danger" id = '{{article.id}}'>delete</a>
+{% endblock %}
+</body>
+</html>

@@ -22,3 +22,6 @@ class Article(models.Model):
         on_delete=models.SET_NULL,
         related_name='articles'
     )
+
+    def __str__(self):
+        return self.title

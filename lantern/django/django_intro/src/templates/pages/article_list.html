@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Articles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body style="background-color:#4DB6AC;">
+<nav class="navbar navbar-light" style="background-color:#FF0033;">
+    <a href="#" class="navbar-brand" style="background-color:#FFCC33;color:#000000;border-width:10px;border-color:#FFCC33;border-style:solid;border-spacing:30px;border-radius: 5px;">Articles App</a>
+    <a class="navbar-link btn-lg" href="{% url 'articles:index' %}" style="background-color:#FFCC33;color:#000000;">All Articles</a>
+    <a href="{% url 'articles:upload-article' %}" class="navbar-link btn-lg" style="background-color:#FFCC33;color:#000000;">Upload Articles</a>
+</nav>
+<br>
+{% block content %}
+    {% for article in articles %}
+    <h5 class="card-title"><a href="{{article.id}}" id = '{{article.id}}'>{{ article.title }}</a></h5>
+       <p class="card-title">{{article.author}}</p>
+       <a href="update/{{article.id}}" class="btn btn-warning" id = '{{article.id}}'>edit</a>
+       <a href="delete/{{article.id}}" class="btn btn-danger" id = '{{article.id}}'>delete</a>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

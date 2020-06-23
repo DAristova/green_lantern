@@ -29,9 +29,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env.str('SECRET_KEY', 'secret_key228')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', False)
+DEBUG = True
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('POSTGRES_DB', ''),
-        'USER': env.str('POSTGRES_USER', ''),
-        'PASSWORD': env.str('POSTGRES_PASSWORD', ''),
-        'HOST': env.str('DB_HOST', ''),
-        'PORT': env.int('DB_PORT', 5432),
+        'NAME': 'django_intro_local',
+        'USER': 'django_intro',
+        'PASSWORD': 'django_intro',
+        'HOST': '127.0.0.1',
+        'PORT': 5432
     }
 }
 
@@ -129,8 +129,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-MEDIA_ROOT = env.str('MEDIA_ROOT', BASE_DIR)
-STATIC_ROOT = env.str('STATIC_ROOT', BASE_DIR)
+# MEDIA_ROOT = env.str('MEDIA_ROOT', BASE_DIR)
+# STATIC_ROOT = env.str('STATIC_ROOT', BASE_DIR)
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
