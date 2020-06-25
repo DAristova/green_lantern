@@ -9,8 +9,5 @@ orders = Blueprint('orders', __name__)
 @login_required
 def list_of_orders():
     user = current_user
-    price_sum = 0
-    for order in user.orders:
-        for line in order.order_lines:
-            price_sum += line.good.price
-    return render_template('orders.html', orders=user.orders, amount=price_sum)
+    price = [line.good.price for order in user.orders for line in order.order_lines]
+    return render_template('orders.html', orders=user.orders, amount=sum(price))
